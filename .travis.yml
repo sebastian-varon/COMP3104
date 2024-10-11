@@ -4,24 +4,27 @@ node_js:
 
 branches:
   only:
-  - master
+    - master
+    - your-branch-name # Add any additional branches you want to build on
 
 cache:
   directories:
-  - node_modules
+    - node_modules
 
 install:
   - npm install
   - npm install -g yarn
 
 script:
-  #- yarn lint
+  # Uncomment the lint step if needed
+  # - yarn lint
   - yarn build
   - mv build/index.html build/404.html
+
 deploy:
   provider: pages
   skip_cleanup: true
-  github_token: $github_token
+  github_token: $GITHUB_TOKEN # Make sure the environment variable is defined correctly in Travis
   local_dir: build
   on:
     branch: master
